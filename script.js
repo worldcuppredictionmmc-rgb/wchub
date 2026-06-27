@@ -1,0 +1,147 @@
+console.log("SCRIPT LOADED");
+function showHome() {
+  document.getElementById("homePage").style.display = "block";
+  document.getElementById("leaderboardPage").style.display = "none";
+
+  document.getElementById("homeBtn").classList.add("active-nav");
+  document.getElementById("leaderboardBtn").classList.remove("active-nav");
+}
+
+function showLeaderboard() {
+  document.getElementById("homePage").style.display = "none";
+  document.getElementById("leaderboardPage").style.display = "block";
+
+  document.getElementById("homeBtn").classList.remove("active-nav");
+  document.getElementById("leaderboardBtn").classList.add("active-nav");
+
+  window.showHome = showHome;
+window.showLeaderboard = showLeaderboard;
+
+loadLeaderboard();
+}
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAw4cJY7oXYrXRyvawehCU7TKCRg5ZS6GY",
+  authDomain: "world-cup-prediction-1ebca.firebaseapp.com",
+  projectId: "world-cup-prediction-1ebca",
+  storageBucket: "world-cup-prediction-1ebca.firebasestorage.app",
+  messagingSenderId: "950989220636",
+  appId: "1:950989220636:web:cd9f82db31549fad3068d9"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function loadLeaderboard() {
+
+  const leaderboard = document.getElementById("leaderboardList");
+
+  leaderboard.innerHTML = "Loading...";
+
+  const q = query(
+    collection(db,"predictions"),
+    orderBy("points","desc")
+  );
+
+  const snapshot = await getDocs(q);
+  console.log("Docs found:", snapshot.size);
+
+  leaderboard.innerHTML = "";
+
+  const users = [];
+
+  snapshot.forEach((doc) => {
+    users.push(doc.data());
+  });
+
+  console.log("Docs:", snapshot.size);
+  console.log("Users:", users);
+  // Stats Update
+
+document.getElementById("activeStage").textContent =
+"Round of 32";
+
+document.getElementById("totalParticipants").textContent =
+users.length;
+
+document.getElementById("currentTopper").textContent =
+users.length > 0 ? users[0].name : "-";
+
+document.getElementById("totalPredictions").textContent =
+users.length;
+
+  leaderboard.innerHTML += `
+<div class="podium-row">
+
+<div class="podium second">
+<h1>🥈</h1>
+<h2>${users[1]?.name || "-"}</h2>
+<p>
+${users[1]?.role === "Faculty"
+? "Faculty"
+: `${users[1]?.department} • ${users[1]?.year}`}
+</p>
+
+<p>${users[1]?.points || 0} pts</p>
+</div>
+
+<div class="podium first">
+<h1>🥇</h1>
+<h2>${users[0]?.name || "-"}</h2>
+<p>
+${users[0]?.role === "Faculty"
+? "Faculty"
+: `${users[0]?.department} • ${users[0]?.year}`}
+</p>-------
+
+<p>${users[0]?.points || 0} pts</p>
+</div>
+
+<div class="podium third">
+<h1>🥉</h1>
+<h2>${users[2]?.name || "-"}</h2>
+<p>
+${users[2]?.role === "Faculty"
+? "Faculty"
+: `${users[2]?.department} • ${users[2]?.year}`}
+</p>
+
+<p>${users[2]?.points || 0} pts</p>
+</div>
+
+</div>
+`;
+
+  // 4th onwards
+  for(let i = 3; i < users.length; i++){
+
+    leaderboard.innerHTML += `
+    <div class="stage">
+      <div>
+        <h3>#${i+1} ${users[i].name}</h3>
+        <p>
+${users[i].role === "Faculty"
+? "Faculty"
+: `${users[i].department} • ${users[i].year}`}
+</p>
+      </div>
+
+      <span>${users[i].points} pts</span>
+    </div>
+    `;
+  }
+
+}
+window.showHome = showHome;
+window.showLeaderboard = showLeaderboard;
+
+loadLeaderboard();
