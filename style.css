@@ -490,3 +490,11 @@ text-shadow:
     line-height:1.8;
 }
 
+.club-title{
+    font-size:25px;
+    font-weight:600;
+    color:#ffffff;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
