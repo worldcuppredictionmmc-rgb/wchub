@@ -459,3 +459,12 @@ color:#facc15;
 text-shadow:
 0 0 15px rgba(250,204,21,.4);
 }
+
+.footer{
+    text-align:center;
+    margin-top:60px;
+    padding:30px;
+    color:#cbd5e1;
+    font-size:15px;
+    font-weight:600;
+}
