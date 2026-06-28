@@ -459,12 +459,34 @@ color:#facc15;
 text-shadow:
 0 0 15px rgba(250,204,21,.4);
 }
-
 .footer{
-    text-align:center;
     margin-top:60px;
-    padding:30px;
-    color:#cbd5e1;
-    font-size:15px;
-    font-weight:600;
+    padding:35px 20px;
+    text-align:center;
+
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(12px);
+
+    border-top:1px solid rgba(255,255,255,0.08);
 }
+
+.footer-tagline{
+    margin-top:8px;
+    color:rgba(255,255,255,0.7);
+    font-size:14px;
+}
+
+.footer-divider{
+    width:70px;
+    height:3px;
+    background:#FFD700;
+    border-radius:10px;
+    margin:18px auto;
+}
+
+.footer-copy{
+    font-size:13px;
+    color:rgba(255,255,255,0.6);
+    line-height:1.8;
+}
+
