@@ -513,7 +513,7 @@ h1.union-title{
     color:#deca4b;
     letter-spacing:3px;
     text-transform:uppercase;
-    margin-bottom:5px;
+    margin-bottom:2px;
 }
 .and-title{
     font-size:35px;
@@ -521,5 +521,5 @@ h1.union-title{
     color:#ffffff;
     letter-spacing:3px;
     text-transform:uppercase;
-    margin:5px 0;
+    margin:2px 0;
 }
