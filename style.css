@@ -421,12 +421,12 @@ padding:5px;
 border-radius:50%;
 }
 
-.union-title{
+/*.union-title{
 font-size:10px;
 font-weight:600;
 margin:5px 0;
 color:white;
-}
+}*/
 
 .header h2{
 font-size:18px;
@@ -488,6 +488,23 @@ text-shadow:
     font-size:13px;
     color:rgba(255,255,255,0.6);
     line-height:1.8;
+}
+
+.club-title{
+    font-size:25px;
+    font-weight:600;
+    color:#ffffff;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+h1.union-title{
+    font-size:25px;
+    font-weight:600;
+    color:#ffffff;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin:5px 0;
 }
 
 .club-title{
