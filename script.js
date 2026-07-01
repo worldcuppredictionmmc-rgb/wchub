@@ -47,24 +47,61 @@ async function loadLeaderboard() {
 
   leaderboard.innerHTML = "Loading...";
 
-  const q = query(
-    collection(db,"predictions"),
-    orderBy("points","desc")
-  );
+ const phase1Snapshot = await getDocs(collection(db,"predictions"));
+const phase2Snapshot = await getDocs(collection(db,"predictions_phase2"));
 
-  const snapshot = await getDocs(q);
-  console.log("Docs found:", snapshot.size);
+
 
   leaderboard.innerHTML = "";
 
-  const users = [];
+ const leaderboardMap = new Map();
 
-  snapshot.forEach((doc) => {
-    users.push(doc.data());
-  });
+  phase1Snapshot.forEach((doc)=>{
 
-  console.log("Docs:", snapshot.size);
-  console.log("Users:", users);
+const user = doc.data();
+
+const key =
+user.role === "Faculty"
+? user.name.trim().toLowerCase()
+: user.rollno;
+
+leaderboardMap.set(key,{
+...user,
+points:user.points || 0
+});
+
+});
+
+  phase2Snapshot.forEach((doc)=>{
+
+const user = doc.data();
+
+const key =
+user.role === "Faculty"
+? user.name.trim().toLowerCase()
+: user.rollno;
+
+if(leaderboardMap.has(key)){
+
+leaderboardMap.get(key).points +=
+(user.points || 0);
+
+}else{
+
+leaderboardMap.set(key,{
+...user,
+points:user.points || 0
+});
+
+}
+
+});
+
+  const users = [...leaderboardMap.values()];
+
+users.sort((a,b)=>
+(b.points || 0) - (a.points || 0)
+);
   // Stats Update
 
 document.getElementById("activeStage").textContent =
