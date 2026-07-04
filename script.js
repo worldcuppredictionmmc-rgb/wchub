@@ -130,7 +130,7 @@ users.sort((a,b)=>
   // Stats Update
 
 document.getElementById("activeStage").textContent =
-"Round of 32";
+"Round of 16";
 
 document.getElementById("totalParticipants").textContent =
 users.length;
