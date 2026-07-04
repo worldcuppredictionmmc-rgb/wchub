@@ -1,4 +1,4 @@
-console.log("SCRIPT LOADED");
+ console.log("SCRIPT LOADED");
 function showHome() {
   document.getElementById("homePage").style.display = "block";
   document.getElementById("leaderboardPage").style.display = "none";
@@ -49,7 +49,7 @@ async function loadLeaderboard() {
 
  const phase1Snapshot = await getDocs(collection(db,"predictions"));
 const phase2Snapshot = await getDocs(collection(db,"predictions_phase2"));
-
+const phase3Snapshot = await getDocs(collection(db,"predictions_phase3"));
 
 
   leaderboard.innerHTML = "";
@@ -73,6 +73,31 @@ points:user.points || 0
 });
 
   phase2Snapshot.forEach((doc)=>{
+
+const user = doc.data();
+
+const key =
+user.role === "Faculty"
+? user.name.trim().toLowerCase()
+: user.rollno;
+
+if(leaderboardMap.has(key)){
+
+leaderboardMap.get(key).points +=
+(user.points || 0);
+
+}else{
+
+leaderboardMap.set(key,{
+...user,
+points:user.points || 0
+});
+
+}
+
+});
+
+  phase3Snapshot.forEach((doc)=>{
 
 const user = doc.data();
 
