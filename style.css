@@ -198,6 +198,12 @@ color:#facc15;
 }
 
 .locked{
+background:#FF0000;
+padding:8px 14px;
+border-radius:10px;
+font-size:12px;
+}
+.closed{
 background:#475569;
 padding:8px 14px;
 border-radius:10px;
