@@ -50,6 +50,7 @@ async function loadLeaderboard() {
  const phase1Snapshot = await getDocs(collection(db,"predictions"));
 const phase2Snapshot = await getDocs(collection(db,"predictions_phase2"));
 const phase3Snapshot = await getDocs(collection(db,"predictions_phase3"));
+const phase4Snapshot = await getDocs(collection(db,"predictions_phase4"));
 
 
   leaderboard.innerHTML = "";
@@ -121,6 +122,30 @@ points:user.points || 0
 }
 
 });
+ phase4Snapshot.forEach((doc)=>{
+
+const user = doc.data();
+
+const key =
+user.role === "Faculty"
+? user.name.trim().toLowerCase()
+: user.rollno;
+
+if(leaderboardMap.has(key)){
+
+leaderboardMap.get(key).points +=
+(user.points || 0);
+
+}else{
+
+leaderboardMap.set(key,{
+...user,
+points:user.points || 0
+});
+
+}
+
+});
 
   const users = [...leaderboardMap.values()];
 
@@ -130,7 +155,7 @@ users.sort((a,b)=>
   // Stats Update
 
 document.getElementById("activeStage").textContent =
-"Round of 16";
+"Quarter Final";
 
 document.getElementById("totalParticipants").textContent =
 users.length;
