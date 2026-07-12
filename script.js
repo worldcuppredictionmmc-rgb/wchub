@@ -51,6 +51,7 @@ async function loadLeaderboard() {
 const phase2Snapshot = await getDocs(collection(db,"predictions_phase2"));
 const phase3Snapshot = await getDocs(collection(db,"predictions_phase3"));
 const phase4Snapshot = await getDocs(collection(db,"predictions_phase4"));
+const phase5Snapshot = await getDocs(collection(db,"predictions_phase5"));
 
 
   leaderboard.innerHTML = "";
@@ -123,6 +124,31 @@ points:user.points || 0
 
 });
  phase4Snapshot.forEach((doc)=>{
+
+const user = doc.data();
+
+const key =
+user.role === "Faculty"
+? user.name.trim().toLowerCase()
+: user.rollno;
+
+if(leaderboardMap.has(key)){
+
+leaderboardMap.get(key).points +=
+(user.points || 0);
+
+}else{
+
+leaderboardMap.set(key,{
+...user,
+points:user.points || 0
+});
+
+}
+
+});
+
+phase5Snapshot.forEach((doc)=>{
 
 const user = doc.data();
 
