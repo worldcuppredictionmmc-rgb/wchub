@@ -41,6 +41,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+async function loadFinalProbability() {
+  const status = document.getElementById("probabilityStatus");
+  const totalLabel = document.getElementById("probabilityTotal");
+
+  try {
+    const snapshot = await getDocs(collection(db, "predictions_phase6"));
+    let spain = 0;
+    let argentina = 0;
+
+    snapshot.forEach((prediction) => {
+      const pick = prediction.data().match1;
+      if (pick === "SPA") spain++;
+      if (pick === "ARG") argentina++;
+    });
+
+    const total = spain + argentina;
+    const spainPct = total ? Math.round((spain / total) * 100) : 0;
+    const argentinaPct = total ? 100 - spainPct : 0;
+
+    document.getElementById("spainProbability").textContent = `${spainPct}%`;
+    document.getElementById("argentinaProbability").textContent = `${argentinaPct}%`;
+    document.getElementById("spainProbabilityBar").style.width = `${spainPct}%`;
+    document.getElementById("argentinaProbabilityBar").style.width = `${argentinaPct}%`;
+    status.textContent = "Live";
+    totalLabel.textContent = total
+      ? `${total} community prediction${total === 1 ? "" : "s"}`
+      : "No final predictions submitted yet.";
+  } catch (error) {
+    console.error("Could not load final probability:", error);
+    status.textContent = "Unavailable";
+    totalLabel.textContent = "Probability data is temporarily unavailable.";
+  }
+}
+
 async function loadLeaderboard() {
 
   const leaderboard = document.getElementById("leaderboardList");
@@ -52,7 +86,7 @@ const phase2Snapshot = await getDocs(collection(db,"predictions_phase2"));
 const phase3Snapshot = await getDocs(collection(db,"predictions_phase3"));
 const phase4Snapshot = await getDocs(collection(db,"predictions_phase4"));
 const phase5Snapshot = await getDocs(collection(db,"predictions_phase5"));
-
+const phase6Snapshot = await getDocs(collection(db,"predictions_phase6"));
 
   leaderboard.innerHTML = "";
 
@@ -173,6 +207,32 @@ points:user.points || 0
 
 });
 
+phase6Snapshot.forEach((doc)=>{
+
+const user = doc.data();
+
+const key =
+user.role === "Faculty"
+? user.name.trim().toLowerCase()
+: user.rollno;
+
+if(leaderboardMap.has(key)){
+
+leaderboardMap.get(key).points +=
+(user.points || 0);
+
+}else{
+
+leaderboardMap.set(key,{
+...user,
+points:user.points || 0
+});
+
+}
+
+});
+
+
   const users = [...leaderboardMap.values()];
 
 users.sort((a,b)=>
@@ -258,3 +318,4 @@ window.showHome = showHome;
 window.showLeaderboard = showLeaderboard;
 
 loadLeaderboard();
+loadFinalProbability();
