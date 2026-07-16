@@ -181,7 +181,7 @@ users.sort((a,b)=>
   // Stats Update
 
 document.getElementById("activeStage").textContent =
-"Semi Final";
+"Final";
 
 document.getElementById("totalParticipants").textContent =
 users.length;
