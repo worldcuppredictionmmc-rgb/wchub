@@ -60,9 +60,11 @@ background:linear-gradient(
 );
 display:inline-block;
 text-align:center;
-
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+
+/* Define the unprefixed property for broader compatibility */
+background-clip:text;
 
 text-shadow:
 0 0 15px rgba(255,215,0,.7),
