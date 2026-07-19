@@ -342,13 +342,17 @@ users.sort((a,b)=>
   // Stats Update
 
 document.getElementById("activeStage").textContent =
-"Final";
+"WC Winner: Spain";
 
 document.getElementById("totalParticipants").textContent =
 users.length;
 
+const topScore = users[0]?.points || 0;
+
+const topUsers = users.filter(user => user.points === topScore);
+
 document.getElementById("currentTopper").textContent =
-users.length > 0 ? users[0].name : "-";
+  topUsers.map(user => user.name).join(" & ");
 
 document.getElementById("totalPredictions").textContent =
 users.length;
