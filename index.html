@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FIFA World Cup 2026 Prediction Hub</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div id="homePage">
+<section class="hero">
+
+<div class="hero-content">
+    <div class="container">
+
+<div class="header">
+<div class="logo-container">
+    <img src="logo.png" class="logo">
+    <img src="logo1.png" class="logo">
+</div>
+
+ <h3 class="club-title">
+IT CLUB 
+</h3>
+<h3 class="and-title">&</h3>
+<h1 class="union-title">
+AAVAAZ COLLEGE UNION
+</h1>
+
+<h2>
+Mary Matha Arts & Science College
+</h2>
+
+<p>Mananthavady</p>
+
+
+<h3 class="tag">
+FIFA WORLD CUP 2026
+</h3>
+
+<h1>
+<span class="gold">
+PREDICTION HUB
+</span>
+</h1>
+
+<p>
+Predict • Compete • Win
+</p>
+
+<a href="https://world-cup-prediction1.pages.dev/"
+class="predict-btn">
+
+ENTER PREDICTIONS
+
+</a>
+
+</div>
+
+</section>
+<!-- LIVE STATS -->
+
+<section class="stats">
+
+<div class="stat-card">
+<h2 id="activeStage">-</h2>
+<p>Active Stage</p>
+</div>
+
+<div class="stat-card">
+<h2 id="totalParticipants">0</h2>
+<p>Total Participants</p>
+</div>
+
+<div class="stat-card">
+<h2 id="currentTopper">-</h2>
+<p>Current Topper</p>
+</div>
+
+<div class="stat-card">
+<h2 id="totalPredictions">0</h2>
+<p>Total Predictions</p>
+</div>
+
+</section>
+
+<!-- TOURNAMENT STAGES -->
+
+<section class="stages">
+
+<h2>Tournament Stages</h2>
+
+    
+<div class="stage active">
+<div>
+<h3>Final</h3>
+<p>Submit predictions now</p>
+</div>
+<a href="https://world-cup-prediction1.pages.dev" class="stage-btn">OPEN</a>
+</div>
+
+<section class="probability-card" aria-labelledby="finalProbabilityTitle">
+<div class="probability-heading">
+<div>
+<p class="probability-kicker">LIVE COMMUNITY PICKS</p>
+<h3 id="finalProbabilityTitle">Final Win Probability</h3>
+</div>
+<span id="probabilityStatus" class="probability-status">Loading...</span>
+</div>
+
+<p class="probability-description">Based on predictions submitted by the community.</p>
+
+<div class="probability-team-row">
+<span class="probability-team">Spain</span>
+<strong id="spainProbability">--%</strong>
+</div>
+<div class="probability-track" aria-hidden="true">
+<div id="spainProbabilityBar" class="probability-fill probability-fill-spain"></div>
+</div>
+
+<div class="probability-team-row">
+<span class="probability-team">Argentina</span>
+<strong id="argentinaProbability">--%</strong>
+</div>
+<div class="probability-track" aria-hidden="true">
+<div id="argentinaProbabilityBar" class="probability-fill probability-fill-argentina"></div>
+</div>
+
+<p id="probabilityTotal" class="probability-total">Waiting for predictions...</p>
+</section>
+
+    <div class="stage active1">
+<div>
+<h3>Semi Finals</h3>
+<p>Submit predictions now</p>
+</div>
+<span class="closed">CLOSED</span>
+</div>
+
+<div class="stage active1">
+<div>
+<h3>Quarter Finals</h3>
+<p>Completed</p>
+</div>
+<span class="closed">CLOSED</span>
+</div>
+
+    <div class="stage active1">
+<div>
+<h3>Round of 16</h3>
+<p>Completed</p>
+</div>
+<span class="closed">CLOSED</span>
+</div>
+
+<div class="stage active1">
+<div>
+<h3>Round of 32 - Phase 1</h3>
+<p>Completed</p>
+</div>
+<span class="closed">CLOSED</span>
+</div>
+
+<div class="stage active1">
+<div>
+<h3>Round of 32 - Phase 2</h3>
+<p>Completed</p>
+</div>
+    <span class="closed">CLOSED</span>
+</div>
+
+</section>
+</div>
+<div id="leaderboardPage" style="display:none;">
+
+<section class="stages">
+
+<h2>Leaderboard</h2>
+
+<div id="leaderboardList"></div>
+
+</section>
+
+</div>
+
+<!-- Final celebrations appear after the official result is published. -->
+<div id="winnerCelebration" class="celebration-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="worldWinnerTitle">
+<div class="celebration-backdrop"></div>
+<div class="celebration-card world-winner-card">
+<div class="confetti-layer" aria-hidden="true"></div>
+<button class="celebration-close" type="button" data-close-celebration aria-label="Close celebration">×</button>
+<p class="celebration-eyebrow">FIFA WORLD CUP 2026</p>
+<div id="worldWinnerFlag" class="winner-flag" aria-hidden="true">🏆</div>
+<p class="celebration-label">WORLD CUP WINNERS</p>
+<h2 id="worldWinnerTitle">Champions</h2>
+<p id="worldWinnerMessage" class="celebration-message"></p>
+<div class="celebration-sparkles" aria-hidden="true">✦ ✧ ✦</div>
+<button id="showPredictionChampion" class="celebration-button" type="button">See Prediction Champion</button>
+</div>
+</div>
+
+<div id="predictionCelebration" class="celebration-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="predictionWinnerTitle">
+<div class="celebration-backdrop"></div>
+<div class="celebration-card prediction-winner-card">
+<div class="confetti-layer" aria-hidden="true"></div>
+<button class="celebration-close" type="button" data-close-celebration aria-label="Close celebration">×</button>
+<p class="celebration-eyebrow">PREDICTION HUB</p>
+<div class="winner-trophy" aria-hidden="true">🏆</div>
+<p class="celebration-label">PREDICTION CHAMPION</p>
+<h2 id="predictionWinnerTitle">Champion</h2>
+<p id="predictionWinnerMessage" class="celebration-message"></p>
+<div class="celebration-sparkles" aria-hidden="true">✦ ✧ ✦</div>
+<button class="celebration-button" type="button" data-close-celebration>Celebrate!</button>
+</div>
+</div>
+
+<script type="module" src="script.js"></script>
+<nav class="bottom-nav">
+
+<button id="homeBtn"
+class="nav-btn active-nav"
+onclick="showHome()">
+ Home
+</button>
+
+<button id="leaderboardBtn"
+class="nav-btn"
+onclick="showLeaderboard()">
+ Leaderboard
+</button>
+
+</nav>
+
+<footer class="footer">
+
+    <p class="footer-tagline">
+        Designed & Developed by
+    </p>
+
+    <div class="footer-divider"></div>
+
+    <p class="footer-copy">
+    <strong>Faris Moideen </strong>
+@ IT Club Dept.of CS
+    </p>
+</body>
+</html>
