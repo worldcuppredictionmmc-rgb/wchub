@@ -91,7 +91,11 @@ function createConfetti(modalId, colors) {
 }
 
 function prepareCelebrations() {
-  if (!officialWorldWinner || predictionChampion.length === 0) return;
+  if (
+  !officialWorldWinner ||
+  !predictionChampion ||
+  predictionChampion.length === 0
+) return;
   if (sessionStorage.getItem("wcFinalCelebrationShown")) return;
 
   const winner = finalistDetails[officialWorldWinner];
