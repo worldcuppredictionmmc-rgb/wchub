@@ -347,7 +347,7 @@ document.getElementById("activeStage").textContent =
 document.getElementById("totalParticipants").textContent =
 users.length;
 
-const topScore = users[0]?.points || 0;
+topScore = users[0]?.points || 0;
 
 const topUsers = users.filter(user => user.points === topScore);
 
@@ -357,9 +357,7 @@ document.getElementById("currentTopper").textContent =
 document.getElementById("totalPredictions").textContent =
 users.length;
 
-topScore = users[0]?.points || 0;
-
-predictionChampion = users.filter(user => user.points === topScore);
+predictionChampion = topUsers;
 
 prepareCelebrations();
 
