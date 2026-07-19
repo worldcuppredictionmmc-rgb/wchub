@@ -46,12 +46,21 @@ const db = getFirestore(app);
 const FINAL_RESULT_COLLECTION = "phase6_results";
 const FINAL_RESULT_DOCUMENT = "match1";
 const finalistDetails = {
-  SPA: { name: "Spain", flag: "🇪🇸", colors: ["#aa151b", "#f1bf00", "#aa151b"] },
-  ARG: { name: "Argentina", flag: "🇦🇷", colors: ["#74acdf", "#ffffff", "#74acdf"] }
+  SPA: {
+    name: "Spain",
+    logo: "spa.png",
+    colors: ["#aa151b", "#f1bf00", "#aa151b"]
+  },
+  ARG: {
+    name: "Argentina",
+    logo: "argentina.png",
+    colors: ["#74acdf", "#ffffff", "#74acdf"]
+  }
 };
 
 let officialWorldWinner = null;
 let predictionChampion = null;
+let topScore = 0;
 
 function showCelebration(id) {
   const modal = document.getElementById(id);
@@ -82,17 +91,30 @@ function createConfetti(modalId, colors) {
 }
 
 function prepareCelebrations() {
-  if (!officialWorldWinner || !predictionChampion) return;
+  if (!officialWorldWinner || predictionChampion.length === 0) return;
   if (sessionStorage.getItem("wcFinalCelebrationShown")) return;
 
   const winner = finalistDetails[officialWorldWinner];
   if (!winner) return;
 
-  document.getElementById("worldWinnerFlag").textContent = winner.flag;
+  document.getElementById("worldWinnerFlag").innerHTML =
+`<img src="${winner.logo}" class="winner-logo" alt="${winner.name}">`;
   document.getElementById("worldWinnerTitle").textContent = winner.name;
   document.getElementById("worldWinnerMessage").textContent = `${winner.name} are the champions of the world!`;
-  document.getElementById("predictionWinnerTitle").textContent = predictionChampion.name || "Champion";
-  document.getElementById("predictionWinnerMessage").textContent = `${predictionChampion.points || 0} points • Top of the Prediction Hub leaderboard`;
+ 
+ const names = predictionChampion.map(user => user.name);
+
+document.getElementById("predictionWinnerTitle").textContent =
+predictionChampion.length === 1
+  ? "Prediction Champion"
+  : `${predictionChampion.length} Prediction Champions`;
+
+document.getElementById("predictionWinnerMessage").innerHTML =
+`
+<strong>${names.join("<br>")}</strong>
+<br><br>
+${topScore} Points • Top of the Prediction Hub Leaderboard
+`;
 
   createConfetti("winnerCelebration", winner.colors);
   createConfetti("predictionCelebration", ["#facc15", "#ffffff", "#22c55e"]);
@@ -327,7 +349,10 @@ users.length > 0 ? users[0].name : "-";
 document.getElementById("totalPredictions").textContent =
 users.length;
 
-predictionChampion = users[0] || null;
+topScore = users[0]?.points || 0;
+
+predictionChampion = users.filter(user => user.points === topScore);
+
 prepareCelebrations();
 
   leaderboard.innerHTML += `
