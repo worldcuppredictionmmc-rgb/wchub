@@ -96,7 +96,7 @@ function prepareCelebrations() {
   !predictionChampion ||
   predictionChampion.length === 0
 ) return;
-  if (sessionStorage.getItem("wcFinalCelebrationShown")) return;
+ // if (sessionStorage.getItem("wcFinalCelebrationShown")) return;
 
   const winner = finalistDetails[officialWorldWinner];
   if (!winner) return;
