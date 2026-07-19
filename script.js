@@ -342,7 +342,7 @@ users.sort((a,b)=>
   // Stats Update
 
 document.getElementById("activeStage").textContent =
-"WC Winner: Spain";
+"Spain";
 
 document.getElementById("totalParticipants").textContent =
 users.length;
